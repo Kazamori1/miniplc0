@@ -271,7 +271,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
     auto next = nextToken();
     if(next.value().GetType()==TokenType::IDENTIFIER){
         if(isDeclared(next.value().GetValueString())){
-            if(isConstant(next.value().GetValueString())){
+            if(!isConstant(next.value().GetValueString())){
                 _instructions.emplace_back(Operation::LOD,getIndex(next.value().GetValueString()));
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::EQUAL_SIGN)
@@ -283,18 +283,18 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::SEMICOLON)
                     return std::make_optional<CompilationError>(
-                            _current_pos, ErrorCode::ErrInvalidIdentifier);
+                            _current_pos, ErrorCode::ErrIncompleteExpression);
             }else{
                 return std::make_optional<CompilationError>(
-                        _current_pos, ErrorCode::ErrIntegerOverflow);
+                        _current_pos, ErrorCode::ErrInvalidAssignment);
             }
         }else{
             return std::make_optional<CompilationError>(
-                    _current_pos, ErrorCode::ErrConstantNeedValue);
+                    _current_pos, ErrorCode::ErrInvalidAssignment);
         }
     }else{
         return std::make_optional<CompilationError>(
-                _current_pos, ErrorCode::ErrDuplicateDeclaration);
+                _current_pos, ErrorCode::ErrInvalidAssignment);
     }
   // 这里除了语法分析以外还要留意
   // 标识符声明过吗？
