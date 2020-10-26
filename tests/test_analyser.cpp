@@ -13,15 +13,20 @@ TEST_CASE("xxx") {
 
 std::string input =
         "begin\n"
-        "	const a = 1;\n"
-        "	var b = 100;\n"
-        "	print(a+b+b*(a+b)-1);\n"
+        "	const a = -1;\n"
+        "	var b=-124*-10+a;\n"
+        "	var c = b*(3+a);\n"
+        "	print(b*(a+c));\n"
+        "	print(a);\n"
+        "	print(b);\n"
+        "	print(c);\n"
         "end\n";
 std::stringstream ss;
 ss.str(input);
 miniplc0::Tokenizer tkz(ss);
 auto result = tkz.AllTokens();
 miniplc0::Analyser a(result.first);
+//auto xx=a.Analyse();
 miniplc0::VM x(a.Analyse().first);
 auto xy=x.Run();
 

@@ -146,10 +146,11 @@ namespace miniplc0 {
                 case UNSIGNED_INTEGER_STATE: {
                     if(!current_char.has_value()){
                         //unreadLast();  // Yes, we unread last char even if it's an EOF.
-                        int32_t sa;
+                        int64_t sa;
                         ss >> sa;
                         if(sa<=((1ll<<31)-1)){
-                            return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sa, pos, currentPos()),std::optional<CompilationError>());
+                            int32_t ta=sa;
+                            return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,ta, pos, currentPos()),std::optional<CompilationError>());
                         }else{
                             return std::make_pair(std::optional<Token>(),std::make_optional<CompilationError>(pos, ErrorCode::ErrIntegerOverflow));
                         }
@@ -159,10 +160,11 @@ namespace miniplc0 {
                         ss<<ch;
                     }else{
                         unreadLast();  // Yes, we unread last char even if it's an EOF.
-                        int32_t sb;
+                        int64_t sb;
                         ss >> sb;
                         if(sb<=((1ll<<31)-1)){
-                            return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sb, pos, currentPos()),std::optional<CompilationError>());
+                            int32_t tb=sb;
+                            return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,tb, pos, currentPos()),std::optional<CompilationError>());
                         }else{
                             return std::make_pair(std::optional<Token>(),std::make_optional<CompilationError>(pos, ErrorCode::ErrIntegerOverflow));
                         }
