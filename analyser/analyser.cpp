@@ -388,7 +388,7 @@ std::optional<CompilationError> Analyser::analyseFactor() {
         _current_pos, ErrorCode::ErrIncompleteExpression);
   switch (next.value().GetType()) {
       case IDENTIFIER : {
-          if(isDeclared(next.value().GetValueString())){
+          if(isInitializedVariable(next.value().GetValueString())||isConstant(next.value().GetValueString())){
               _instructions.emplace_back(Operation::LOD, getIndex(next.value().GetValueString()));
               break;
           }else{
