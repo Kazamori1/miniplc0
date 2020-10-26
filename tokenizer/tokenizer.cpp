@@ -146,9 +146,13 @@ Tokenizer::nextToken() {
       case UNSIGNED_INTEGER_STATE: {
           if(!current_char.has_value()){
               //unreadLast();  // Yes, we unread last char even if it's an EOF.
-              int sa;
+              int64_t sa;
               ss >> sa;
-              return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sa, pos, currentPos()),std::optional<CompilationError>());
+              if(sa<=((1ll<<31)-1)){
+                  return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sa, pos, currentPos()),std::optional<CompilationError>());
+              }else{
+                  return std::make_pair(std::optional<Token>(),std::make_optional<CompilationError>(pos, ErrorCode::ErrIntegerOverflow));
+              }
           }
           auto ch = current_char.value();
           if(miniplc0::isdigit(ch)){
