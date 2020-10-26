@@ -37,7 +37,7 @@ enum ErrorCode {
   ErrDuplicateDeclaration,
   ErrNotInitialized,
   ErrInvalidAssignment,
-  ErrInvalidPrint
+  ErrInvalidPrint,
 };
 
 class CompilationError final {

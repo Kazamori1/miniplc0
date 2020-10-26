@@ -276,25 +276,25 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::EQUAL_SIGN)
                     return std::make_optional<CompilationError>(
-                            _current_pos, ErrorCode::ErrInvalidAssignment);
+                            _current_pos, ErrorCode::ErrIncompleteExpression);
                 auto err = analyseExpression();
                 if(err.has_value()) return err;
                 _instructions.emplace_back(Operation::STO,getIndex(next.value().GetValueString()));
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::SEMICOLON)
                     return std::make_optional<CompilationError>(
-                            _current_pos, ErrorCode::ErrInvalidAssignment);
+                            _current_pos, ErrorCode::ErrInvalidIdentifier);
             }else{
                 return std::make_optional<CompilationError>(
-                        _current_pos, ErrorCode::ErrInvalidAssignment);
+                        _current_pos, ErrorCode::ErrIntegerOverflow);
             }
         }else{
             return std::make_optional<CompilationError>(
-                    _current_pos, ErrorCode::ErrInvalidAssignment);
+                    _current_pos, ErrorCode::ErrConstantNeedValue);
         }
     }else{
         return std::make_optional<CompilationError>(
-                _current_pos, ErrorCode::ErrInvalidAssignment);
+                _current_pos, ErrorCode::ErrDuplicateDeclaration);
     }
   // 这里除了语法分析以外还要留意
   // 标识符声明过吗？
