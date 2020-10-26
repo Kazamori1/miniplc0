@@ -111,7 +111,7 @@ std::optional<CompilationError> Analyser::analyseVariableDeclaration() {
             return {};
         }
         next = nextToken();
-        if (!next.has_value() || next.value().GetType() != TokenType::IDENTIFIER)
+        if (!next.has_value() || next.value().GetType() != TokenType:: IDENTIFIER)
             return std::make_optional<CompilationError>(_current_pos,
                                                         ErrorCode::ErrNeedIdentifier);
         if (isDeclared(next.value().GetValueString()))
@@ -272,7 +272,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
     if(next.value().GetType()==TokenType::IDENTIFIER){
         if(isDeclared(next.value().GetValueString())){
             if(!isConstant(next.value().GetValueString())){
-                _instructions.emplace_back(Operation::LOD,getIndex(next.value().GetValueString()));
+                // _instructions.emplace_back(Operation::LOD,getIndex(next.value().GetValueString()));
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::EQUAL_SIGN)
                     return std::make_optional<CompilationError>(
@@ -403,6 +403,7 @@ std::optional<CompilationError> Analyser::analyseFactor() {
       case LEFT_BRACKET : {
           auto err = analyseExpression();
           if(err.has_value()) return err;
+          // !
           next = nextToken();
           if(next.value().GetType()!=TokenType::RIGHT_BRACKET){
               return std::make_optional<CompilationError>(

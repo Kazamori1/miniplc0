@@ -14,8 +14,8 @@ TEST_CASE("xxx") {
 std::string input =
         "begin\n"
         "	const a = -1;\n"
-        "	var b=-124*-10+a;\n"
-        "	var c = b*(3+a);\n"
+        "	var b;\n"
+        "	var c = 3;\n"
         "	print(b*(a+c));\n"
         "	print(a);\n"
         "	print(b);\n"
