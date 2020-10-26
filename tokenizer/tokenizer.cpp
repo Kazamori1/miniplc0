@@ -207,6 +207,16 @@ namespace miniplc0 {
                     //     如果解析结果是关键字，那么返回对应关键字的token，否则返回标识符的token
                     break;
                 }
+                case MULTIPLICATION_SIGN_STATE: {
+                    // 请思考这里为什么要回退，在其他地方会不会需要
+                    unreadLast();  // Yes, we unread last char even if it's an EOF.
+                    return std::make_pair(std::make_optional<Token>(TokenType::MULTIPLICATION_SIGN,'*', pos, currentPos()),std::optional<CompilationError>());
+                }
+                case DIVISION_SIGN_STATE: {
+                    // 请思考这里为什么要回退，在其他地方会不会需要
+                    unreadLast();  // Yes, we unread last char even if it's an EOF.
+                    return std::make_pair(std::make_optional<Token>(TokenType::DIVISION_SIGN,'/', pos, currentPos()),std::optional<CompilationError>());
+                }
                     // 如果当前状态是加号
                 case PLUS_SIGN_STATE: {
                     // 请思考这里为什么要回退，在其他地方会不会需要

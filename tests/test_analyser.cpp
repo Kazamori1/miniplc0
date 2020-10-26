@@ -2,6 +2,7 @@
 #include "catch2/catch.hpp"
 #include "instruction/instruction.h"
 #include "tokenizer/tokenizer.h"
+#include "simple_vm.hpp"
 #include <sstream>
 #include <vector>
 
@@ -14,15 +15,14 @@ std::string input =
         "begin\n"
         "	const a = 1;\n"
         "	var b = 100;\n"
-        "	print(a+b);\n"
+        "	print(a+b+b*(a+b)-1);\n"
         "end\n";
 std::stringstream ss;
 ss.str(input);
 miniplc0::Tokenizer tkz(ss);
 auto result = tkz.AllTokens();
 miniplc0::Analyser a(result.first);
-a.Analyse();
-if (result.second.has_value()) {
-FAIL();
-}
+miniplc0::VM x(a.Analyse().first);
+auto xy=x.Run();
+
 }

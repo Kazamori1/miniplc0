@@ -8,6 +8,7 @@ CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: .././tokenizer/token.h
 CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: .././tokenizer/tokenizer.h
 CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: .././tokenizer/utils.hpp
 CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: ../3rd_party/catch2/catch2/catch.hpp
+CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: ../tests/simple_vm.hpp
 CMakeFiles/miniplc0_test.dir/tests/test_analyser.cpp.obj: ../tests/test_analyser.cpp
 
 CMakeFiles/miniplc0_test.dir/tests/test_main.cpp.obj: ../3rd_party/catch2/catch2/catch.hpp
