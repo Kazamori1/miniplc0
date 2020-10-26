@@ -12,7 +12,7 @@ TEST_CASE("Test hello world.") {
   std::string input =
           "begin\n"
           "	var a = 1;\n"
-          "	const b = 1\n"
+          "	const b = 10000000000000000000;\n"
           "	print(a+b);\n"
           "end\n";
   std::stringstream ss;
