@@ -272,6 +272,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
     if(next.value().GetType()==TokenType::IDENTIFIER){
         if(isDeclared(next.value().GetValueString())){
             if(!isConstant(next.value().GetValueString())){
+                auto str = next.value().GetValueString();
                 // _instructions.emplace_back(Operation::LOD,getIndex(next.value().GetValueString()));
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::EQUAL_SIGN)
@@ -279,7 +280,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
                             _current_pos, ErrorCode::ErrIncompleteExpression);
                 auto err = analyseExpression();
                 if(err.has_value()) return err;
-                _instructions.emplace_back(Operation::STO,getIndex(next.value().GetValueString()));
+                _instructions.emplace_back(Operation::STO,getIndex(str));
                 next = nextToken();
                 if (!next.has_value() || next.value().GetType() != TokenType::SEMICOLON)
                     return std::make_optional<CompilationError>(
