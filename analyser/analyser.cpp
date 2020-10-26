@@ -280,6 +280,10 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
                 auto err = analyseExpression();
                 if(err.has_value()) return err;
                 _instructions.emplace_back(Operation::STO,getIndex(next.value().GetValueString()));
+                next = nextToken();
+                if (!next.has_value() || next.value().GetType() != TokenType::SEMICOLON)
+                    return std::make_optional<CompilationError>(
+                            _current_pos, ErrorCode::ErrInvalidAssignment);
             }else{
                 return std::make_optional<CompilationError>(
                         _current_pos, ErrorCode::ErrInvalidAssignment);
