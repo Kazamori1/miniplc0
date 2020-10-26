@@ -221,9 +221,9 @@ std::optional<CompilationError> Analyser::analyseConstantExpression(
                 _current_pos, ErrorCode::ErrIncompleteExpression);
     else if(next.value().GetType() == TokenType::UNSIGNED_INTEGER){
         if(prefix == 1){
-            out = std::any_cast<int>(next.value().GetValue());
+            out = std::stoi(next.value().GetValueString());
         }else if(prefix == -1){
-            out = -1 * std::any_cast<int>(next.value().GetValue());
+            out = -1 * std::stoi(next.value().GetValueString());
         }
     }
   // out 是常表达式的结果
@@ -393,7 +393,7 @@ std::optional<CompilationError> Analyser::analyseFactor() {
           }
       }
       case UNSIGNED_INTEGER : {
-          _instructions.emplace_back(Operation::LIT,std::any_cast<int>(next.value().GetValue()));
+          _instructions.emplace_back(Operation::LIT,std::stoi(next.value().GetValueString()));
           break;
       }
       case LEFT_BRACKET : {
