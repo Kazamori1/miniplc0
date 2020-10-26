@@ -146,7 +146,7 @@ namespace miniplc0 {
                 case UNSIGNED_INTEGER_STATE: {
                     if(!current_char.has_value()){
                         //unreadLast();  // Yes, we unread last char even if it's an EOF.
-                        int64_t sa;
+                        int32_t sa;
                         ss >> sa;
                         if(sa<=((1ll<<31)-1)){
                             return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sa, pos, currentPos()),std::optional<CompilationError>());
@@ -159,7 +159,7 @@ namespace miniplc0 {
                         ss<<ch;
                     }else{
                         unreadLast();  // Yes, we unread last char even if it's an EOF.
-                        int64_t sb;
+                        int32_t sb;
                         ss >> sb;
                         if(sb<=((1ll<<31)-1)){
                             return std::make_pair(std::make_optional<Token>(TokenType::UNSIGNED_INTEGER,sb, pos, currentPos()),std::optional<CompilationError>());
